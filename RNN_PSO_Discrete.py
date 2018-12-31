@@ -9,11 +9,12 @@ FILE_NAME = 'artificial.csv'
 # Number of particles to be generated
 NUM_PARTICLES = 30
 # Number of iterations
-NUM_ITERATIONS = 500
+NUM_ITERATIONS = 1000
 
 # Results
 predicted_weights = None
 fit_pw = None
+frequency_weights = None
 
 # Dataset (initialised in main)
 data = None
@@ -39,7 +40,7 @@ W_I = 0.7
 C_1 = 2
 C_2 = 2
 # Del
-DEL = 0.05
+DEL = 0.2
 
 
 # D = N(N + 2) dimensional vector of 0s and 1s.
@@ -155,4 +156,10 @@ if __name__ == '__main__':
     N = len(data[0])
     T = len(data)
     
-    predicted_weights, fit_pw = PSO_based_RNN_training(NUM_PARTICLES, NUM_ITERATIONS)
+    frequency_weights = np.zeros((N, N))
+    for i in range(100):
+        print("Run %d" % (i + 1))
+        predicted_weights, fit_pw = PSO_based_RNN_training(NUM_PARTICLES, NUM_ITERATIONS)
+        frequency_weights += predicted_weights
+    
+    print(frequency_weights)
